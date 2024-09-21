@@ -1,4 +1,4 @@
-# Mon Application React
+# EvoSoftInventory
 
 Bienvenue dans **EvoSoftInventory**, une application web moderne construite avec [Vite.js](https://vitejs.dev/) et [React](https://reactjs.org/).
 
