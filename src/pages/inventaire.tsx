@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { InventaireRow } from "../components/inventaires/inventaireRow"
-import { Form } from "./form";
+import { unparse } from "papaparse";
+import { Modal } from "../components/inventaires/modal";
 
 interface Magasin {
     id: number;
@@ -75,36 +76,52 @@ export function Inventaire(){
         </table>
     }
 
+    const CSVExport = () => {
+        const data = inventories.map((inventaire: any) => {
+          if(inventaire == null){
+            return "inventaire vide"
+          }
+          const produit = PRODUCTS.find((p) => p.id === inventaire.produitId)?.nom || "Produit inconnu"
+          const date = inventaire.date
+          const stock1 = inventaire.stock[0]
+          const stock2 = inventaire.stock[1]
+          const stock3 = inventaire.stock[2]
+          const stock4 = inventaire.stock[3]
+          const stock5 = inventaire.stock[4]
+          const stock6 = inventaire.stock[5]
+          const stock7 = inventaire.stock[6]
+          let row = {date, produit, stock1, stock2, stock3, stock4, stock5, stock6, stock7} 
+    
+          return row;
+        });
+    
+        const headers = ["date", "produit", ...MAGASINS.map((m) => m.nom)];
+    
+        const csv = unparse({ fields: headers, data });
+    
+        const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.setAttribute("download", "inventaires.csv");
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      };
+
     return <>
-        {/*  Modal */}
-        <div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div className="modal-dialog">
-                <div className="modal-content">
-                <div className="modal-header">
-                    <h5 className="modal-title" id="staticBackdropLabel">Inventaire</h5>
-                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div className="modal-body">
-                <Form title="Ajouter un inventaire"
-                    inventaire={inventory} 
-                    produits={PRODUCTS} 
-                    magasins={MAGASINS} 
-                    inventaires={inventories} 
-                    onInventoryChange={setInventaires}
-                />
-                </div>
-                <div className="modal-footer">
-                    <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                </div>
-                </div>
-            </div>
-        </div>
+        <Modal title="Ajouter un inventaire"
+                inventaire={inventory} 
+                produits={PRODUCTS} 
+                magasins={MAGASINS} 
+                inventaires={inventories} 
+                onInventoryChange={setInventaires}/>
 
         <h3 className="text-center">Inventaire</h3>
         
         <div className="d-flex">
-            <button className="btn btn-outline-success m-1">Export</button>
-            <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            <button className="btn btn-outline-warning m-1" onClick={CSVExport}>Export</button>
+            <button type="button" className="btn btn-primary m-1" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                 Add
             </button>
         </div> 

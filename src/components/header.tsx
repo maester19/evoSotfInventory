@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 export function Header(){
     return (
         <>
-          <nav className="navbar navbar-expand-lg navbar-light bg-light">
+          <nav className="navbar navbar-expand navbar-dark bg-dark">
             <div className="container-fluid">
                 <NavLink className="navbar-brand" to="/">EvoSoftInventory</NavLink>
                 <button className="navbar-toggler" type="button" data-b s-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -20,8 +20,8 @@ export function Header(){
                         
                     </ul>
                     <form className="d-flex">
-                        <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                        <button className="btn btn-outline-success" type="submit">Search</button>
+                        <button className="btn btn-outline-secondary m-1" type="submit">EN</button>
+                        <button className="btn btn-outline-primary m-1 active" type="submit">FR</button>
                     </form>
                 </div>
             </div>

@@ -4,7 +4,7 @@ import { Select } from "../components/forms/select";
 import { InputNumber } from "../components/forms/inputNumber";
 
 
-export function Form({title, inventaire,produits, magasins, inventaires, onInventoryChange}: any) {
+export function Form({inventaire,produits, magasins, inventaires, onInventoryChange}: any) {
 
     const [date, setDate] = useState(inventaire? inventaire.date : "")
     const [prodId, setProdId] = useState(inventaire?inventaire.produitId: 1)
@@ -22,7 +22,6 @@ export function Form({title, inventaire,produits, magasins, inventaires, onInven
     }
 
     return <>
-    <h3 className="text-center">{title}</h3>
     <form className="form" onSubmit={handleSubmit}>
         <div className="form-group">
             <label htmlFor="date" className="m-1">Date</label>
