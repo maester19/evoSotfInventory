@@ -3,6 +3,7 @@ import { Checkbox } from "../components/forms/checkbox"
 import { Input } from "../components/forms/input"
 import { MagasinRow } from "../components/products/magasinRow"
 import { ProductRow } from "../components/products/productRow"
+import { useTranslation } from "react-i18next"
 
 
 const PRODUCTS = [
@@ -25,6 +26,8 @@ export function Home(){
     const [showStockedOnly, setShowStockedOnly] = useState(false)
     const [showUnstockedOnly, setShowUnstockedOnly] = useState(false)
     const [search, setSearch] = useState("")
+
+    const {t} = useTranslation()
 
     const visibleProducts = PRODUCTS.filter(product => {
         if (showUnstockedOnly && product.stock < 5) {
@@ -61,21 +64,21 @@ export function Home(){
                     search, onSearchChange}: any){
         return <div>
             <div className="mb-3">
-                <Input value={search} onChange={onSearchChange} placeholder="Recherche ..." />
+                <Input value={search} onChange={onSearchChange} placeholder={t("search")} />
                 <div className="row d-flex">
                     <div className="col-4">
                         <Checkbox 
                             id="stocked" 
                             checked={showUnstockedOnly} 
                             onChange={onUnstockedOnlyChange} 
-                            label="N'afficher que les produits en stock" />
+                            label={t("stock1")} />
                     </div>
                     <div className="col-4">
                         <Checkbox 
                         id="unstocked" 
                         checked={showStockedOnly} 
                         onChange={onStockedOnlyChange} 
-                        label="N'afficher que les produits en rupture de stock" />
+                        label={t("stock2")} />
                     </div>
                     
                 </div>
