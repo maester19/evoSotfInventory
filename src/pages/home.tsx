@@ -31,7 +31,7 @@ export function Home(){
             return false
         }
 
-        if (showStockedOnly && product.stock > 6) {
+        if (showStockedOnly && product.stock > 5) {
             return false
         }
 

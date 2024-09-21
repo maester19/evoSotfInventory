@@ -1,12 +1,12 @@
-interface ProductProps {
+interface Product {
     name: string;
     price: string;
     stock: number;
   }
 
-export function ProductRow({product}: {product : ProductProps}){
+export function ProductRow({product}: {product : Product}){
 
-    const style = product.stock > 0 ? undefined : {color: 'red'}
+    const style = product.stock > 5 ? undefined : {color: 'red'}
 
     return <tr>
         <td style={style}>{product.name}</td>
