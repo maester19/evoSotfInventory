@@ -93,7 +93,7 @@ export function Home(){
                 row.push(<MagasinRow key={product.magasin} magasin={{id: product.magasin, nom: product.magasin, adresse: ""}} />)
             }
             lastMagasin = product.magasin
-            row.push(<ProductRow key={product.name} product={product} />)
+            row.push(<ProductRow key={product.magasin+product.name} product={product} />)
         }
 
         return <table className="table table-striped table-hover">

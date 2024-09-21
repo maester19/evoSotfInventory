@@ -1,15 +1,16 @@
+import { useEffect, useState } from "react";
 import { InventaireRow } from "../components/inventaires/inventaireRow"
-
-
-const INVENTAIRES = [
-    { id: 1, date: new Date().toISOString().split("T")[0], produitId: 1, stock: [1,5,6,8,5,9,23] }
-]
+import { Form } from "./form";
 
 interface Magasin {
     id: number;
     nom: string;
     adresse: string;
 }
+
+const INVENTAIRES = [null]
+const inventory = {id: INVENTAIRES.length +1,date: new Date().toISOString().split("T")[0], produitId: 1, stock: [0,0,0,0,0,0,0] }
+
 
 const PRODUCTS = [
     { id:1, nom: "apple", prix: 1},
@@ -32,41 +33,31 @@ const PRODUCTS = [
     { id:6, nom: "Santa Lucia", adresse: "yaounde" },
     { id:7, nom: "Fontana", adresse: "yaounde" },
   ]
+
 export function Inventaire(){
-
-    return <>
-        <center><h3>Inventaire</h3></center>
-        <div className="container my-3">
-            <InventaireTable inventaires={INVENTAIRES} />
-        </div>
-    </>
-
-    // function SearchBar({search, onSearchChange}: any){
-    //     return <div>
-    //         <div className="mb-3">
-    //             <Input value={search} onChange={onSearchChange} placeholder="Recherche ..." />
-    //         </div>
-    //     </div>
-    // }
+    const [inventories, setInventaires] = useState(INVENTAIRES)
 
     function InventaireTable({inventaires}: any){
 
-        const row = []
-        let lastDate = null
+        useEffect(()=> {
+            
+        },[inventories])
 
+        const row = []
+        console.log(INVENTAIRES)
         for(let inventaire of inventaires){
-            lastDate = inventaire.date
+            inventaire? 
             row.push(<InventaireRow 
-                key={inventaire.produitId}
+                key={inventaire.id}
                 inventaire={inventaire} 
                 magasins={MAGASINS}
                 produits={PRODUCTS}
-                />)
+                />) : undefined
         }
 
-        return <table className="table table-striped table-hover">
+        return <table className="table table-striped table-hover border">
             <thead>
-                <tr style={{background: "aqua"}}>
+                <tr style={{background: "darkblue", color: "#fff"}}>
                     <th rowSpan={2}>Date</th>
                     <th rowSpan={2}>Product</th>
                     <th rowSpan={2}>Prix</th>
@@ -83,4 +74,42 @@ export function Inventaire(){
             </tbody>
         </table>
     }
+
+    return <>
+        {/*  Modal */}
+        <div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div className="modal-dialog">
+                <div className="modal-content">
+                <div className="modal-header">
+                    <h5 className="modal-title" id="staticBackdropLabel">Inventaire</h5>
+                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div className="modal-body">
+                <Form title="Ajouter un inventaire"
+                    inventaire={inventory} 
+                    produits={PRODUCTS} 
+                    magasins={MAGASINS} 
+                    inventaires={inventories} 
+                    onInventoryChange={setInventaires}
+                />
+                </div>
+                <div className="modal-footer">
+                    <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+                </div>
+            </div>
+        </div>
+
+        <h3 className="text-center">Inventaire</h3>
+        
+        <div className="d-flex">
+            <button className="btn btn-outline-success m-1">Export</button>
+            <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                Add
+            </button>
+        </div> 
+        <div className="container my-3">
+            <InventaireTable inventaires={inventories} />
+        </div>
+    </>
 }
