@@ -1,4 +1,10 @@
 {
     "navLink1": "Accueil",
-    "navLink2": "Inventaire"
+    "navLink2": "Inventaire",
+    "search": "Recherche ...",
+    "stock1": "N'afficher que les produits en stock",
+    "stock2": "N'afficher que les produits en rupture de stock",
+    "tab1col1": "Nom",
+    "tab1col2": "Prix",
+    "tab1col3": "Quantité"
 }

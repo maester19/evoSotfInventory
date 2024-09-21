@@ -102,9 +102,9 @@ export function Home(){
         return <table className="table table-striped table-hover">
             <thead>
                 <tr>
-                    <th>Nom</th>
-                    <th>Prix</th>
-                    <th>Stock</th>
+                    <th>{t("tab1col1")}</th>
+                    <th>{t("tab1col2")}</th>
+                    <th>{t("tab1col3")}</th>
                 </tr>
             </thead>
             <tbody>

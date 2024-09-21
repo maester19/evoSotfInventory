@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { InventaireRow } from "../components/inventaires/inventaireRow"
 import { unparse } from "papaparse";
 import { Modal } from "../components/inventaires/modal";
+import { Form } from "./form";
 
 interface Magasin {
     id: number;
@@ -36,7 +37,7 @@ const PRODUCTS = [
   ]
 
 export function Inventaire(){
-    const [inventories, setInventaires] = useState(INVENTAIRES)
+    const [inventories, setInventories] = useState(INVENTAIRES)
 
     function InventaireTable({inventaires}: any){
 
@@ -45,7 +46,6 @@ export function Inventaire(){
         },[inventories])
 
         const row = []
-        console.log(INVENTAIRES)
         for(let inventaire of inventaires){
             inventaire? 
             row.push(<InventaireRow 
@@ -110,17 +110,18 @@ export function Inventaire(){
       };
 
     return <>
-        <Modal title="Ajouter un inventaire"
-                inventaire={inventory} 
-                produits={PRODUCTS} 
-                magasins={MAGASINS} 
-                inventaires={inventories} 
-                onInventoryChange={setInventaires}/>
+        <Form
+            inventaire={inventory} 
+            produits={PRODUCTS} 
+            magasins={MAGASINS} 
+            inventaires={inventories} 
+            onInventoryChange={setInventories}
+        />
 
         <h3 className="text-center">Inventaire</h3>
         
         <div className="d-flex">
-            <button className="btn btn-outline-warning m-1" onClick={CSVExport}>Export</button>
+            <button className="btn btn-warning m-1" onClick={CSVExport}>Export</button>
             <button type="button" className="btn btn-primary m-1" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                 Add
             </button>

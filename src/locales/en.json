@@ -1,4 +1,10 @@
 {
     "navLink1": "Home",
-    "navLink2": "Inventory"
+    "navLink2": "Inventory",
+    "search": "Search ...",
+    "stock1": "Show only stock products",
+    "stock2": "Show only out of stock products",
+    "tab1col1": "Name",
+    "tab1col2": "Price",
+    "tab1col3": "Stock"
 }

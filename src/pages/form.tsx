@@ -3,37 +3,22 @@ import { InputDate } from "../components/forms/inputDate";
 import { Select } from "../components/forms/select";
 import { InputNumber } from "../components/forms/inputNumber";
 
-interface Inventory {
-  id: number;
-  date: string;
-  produitId: number;
-  stock: { [key: number]: number };
-}
-
 interface Magasin {
   id: number;
   nom: string;
 }
 
-interface Props {
-  inventaire: Inventory | null;
-  produits: any[];
-  magasins: Magasin[];
-  inventaires: Inventory[];
-  onInventoryChange: (inventaires: Inventory[]) => void;
-}
-
-export function Form({ inventaire, produits, magasins, inventaires, onInventoryChange }: Props) {
+export function Form({ inventaire, produits, magasins, inventaires, onInventoryChange }: any) {
   const [date, setDate] = useState(inventaire ? inventaire.date : "");
   const [prodId, setProdId] = useState(inventaire ? inventaire.produitId : 1);
   const [stock, setStock] = useState(
     inventaire
       ? inventaire.stock
-      : magasins.reduce((acc, magasin) => ({ ...acc, [magasin.id]: 0 }), {})
+      : magasins.reduce(({acc, magasin}: any) => ({ ...acc, [magasin.id]: 0 }), {})
   );
 
   const handleStockChange = (magasinId: number, value: number) => {
-    setStock((prevStock) => ({ ...prevStock, [magasinId]: value }));
+    setStock((prevStock: any) => ({ ...prevStock, [magasinId]: value }));
   };
 
   const handleSubmit = () => {
@@ -55,30 +40,48 @@ export function Form({ inventaire, produits, magasins, inventaires, onInventoryC
   };
 
   return (
-    <form className="form" onSubmit={(e) => {
-      e.preventDefault();
-      handleSubmit();
-    }}>
-      <div className="form-group">
-        <label htmlFor="date" className="m-1">Date</label>
-        <InputDate value={date} onChange={setDate} />
-      </div>
-      <div className="form-group">
-        <label htmlFor="produit" className="m-1">Produits</label>
-        <Select collection={produits} value={prodId} onChange={setProdId} />
-      </div>
-      <div className="p-1">
-        <h4 className="m-1 text-center">Entrer les stocks </h4>
-        {magasins.map((m) => (
-          <div key={`${m.id}-${m.nom}`} className="m-1 form-group">
-            <label htmlFor={`stock-${m.id}`}>{m.nom}</label>
-            <InputNumber value={stock[m.id-1]} onChange={(value) => handleStockChange(m.id, value)} />
+    <div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div className="modal-dialog">
+            <div className="modal-content">
+            <div className="modal-header">
+                <h5 className="modal-title text-center" id="staticBackdropLabel">Form inventory</h5>
+                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div className="modal-body">
+                <form className="form" onSubmit={(e) => {
+                    e.preventDefault();
+                    handleSubmit();
+                    }}>
+                    <div className="form-group">
+                        <label htmlFor="date" className="m-1">Date</label>
+                        <InputDate value={date} onChange={setDate} />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="produit" className="m-1">Produits</label>
+                        <Select collection={produits} value={prodId} onChange={setProdId} />
+                    </div>
+                    <div className="p-1">
+                        <h4 className="m-1 text-center">Entrer les stocks </h4>
+                        {magasins.map((m: Magasin) => (
+                        <div key={`${m.id}-${m.nom}`} className="m-1 form-group">
+                            <label htmlFor={`stock-${m.id}`}>{m.nom}</label>
+                            <InputNumber value={stock[m.id-1]} onChange={(value: any) => handleStockChange(m.id-1, value)} />
+                        </div>
+                        ))}
+                    </div>
+                    <p className="text-center">
+                        <button type="submit" className="btn btn-success p-2" data-bs-dismiss="modal">Valider</button>
+                    </p>
+                </form>
+            </div>
           </div>
-        ))}
-      </div>
-      <p className="text-center">
-        <button type="submit" className="btn btn-success p-2">Valider</button>
-      </p>
-    </form>
+        </div>
+    </div>
+
+
+
+
+
+    
   );
 }

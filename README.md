@@ -1,50 +1,47 @@
-# React + TypeScript + Vite
+# Mon Application React
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Bienvenue dans **EvoSoftInventory**, une application web moderne construite avec [Vite.js](https://vitejs.dev/) et [React](https://reactjs.org/).
 
-Currently, two official plugins are available:
+## Technologies utilisées
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **React** : Bibliothèque JavaScript pour construire des interfaces utilisateur.
+- **Vite.js** : Outil de build rapide pour le développement moderne.
+- **React Router** : Pour la gestion des routes.
+- **CSS Modules** : Pour le style des composants.
 
-## Expanding the ESLint configuration
+## Installation
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+1. Clonez le dépôt :
+   ```bash
+   git clone https://github.com/maester19/evoSotfInventory.git
+   ```
 
-- Configure the top-level `parserOptions` property like this:
+2. Accédez au répertoire du projet :
+   ```bash
+   cd evoSoftInventory
+   ```
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+3. Installez les dépendances :
+   ```bash
+   npm install
+   ```
+
+## Utilisation
+
+Pour démarrer l'application en mode développement, exécutez :
+
+```bash
+npm run dev
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+Ouvrez votre navigateur et accédez à `http://localhost:5173` pour voir l'application en cours d'exécution.
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+## Scripts disponibles
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+- `npm run dev` : Démarre l'application en mode développement.
+- `npm run build` : Compile l'application pour la production.
+- `npm run serve` : Servez l'application construite localement.
+
+
+Merci d'avoir consulté **EvoSoftInventory** ! N'hésitez pas à poser des questions ou à faire des suggestions.
 ```
