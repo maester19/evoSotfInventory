@@ -24,15 +24,6 @@ import { Header } from './components/header'
     }
   ])
 
-  const PRODUCTS = [
-    { name: "apple", stock: 10, price: "1$", magasin: "Super U"},
-    { name: "dragonfruit", stock: 10, price: "2$", magasin: "Super U"},
-    { name: "passionfruit", stock: 10, price: "4$", magasin: "Super U"},
-    { name: "spinach", stock: 10, price: "1$", magasin: "Carrefour"},
-    { name: "pumpkin", stock: 10, price: "2$", magasin: "Carrefour"},
-    { name: "peas", stock: 10, price: "1$", magasin: "Carrefour"}
-  ]
-
 function App() {
 
   return <RouterProvider router={router} />

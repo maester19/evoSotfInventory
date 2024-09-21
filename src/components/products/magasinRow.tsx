@@ -1,10 +1,12 @@
 interface Magasin {
     id: string;
     nom: string;
-    adresse: string;
+    adresse: string ;
 }
 export function MagasinRow({magasin}: { magasin: Magasin }){
-    return <tr>
-        <td colSpan={2}><strong>{magasin.nom}</strong></td>
+
+    const style = {background : "aqua"}
+    return <tr style={style}>
+        <td colSpan={3}><strong>{magasin.nom}</strong></td>
     </tr>
 }
