@@ -37,6 +37,9 @@ export function Form({ inventaire, produits, magasins, inventaires, onInventoryC
       inventaires[newInventory.id - 1] = newInventory;
     }
     onInventoryChange([...inventaires]);
+    setDate(inventaire.date)
+    setProdId(inventaire.produitId)
+    setStock(inventaire.stock)
   };
 
   return (

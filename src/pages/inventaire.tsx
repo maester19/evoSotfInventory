@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { InventaireRow } from "../components/inventaires/inventaireRow"
 import { unparse } from "papaparse";
-import { Modal } from "../components/inventaires/modal";
 import { Form } from "./form";
+import { useTranslation } from "react-i18next";
 
 interface Magasin {
     id: number;
@@ -38,7 +38,9 @@ const PRODUCTS = [
 
 export function Inventaire(){
     const [inventories, setInventories] = useState(INVENTAIRES)
+    const [current, setCurrent] = useState(inventory)
 
+    const {t} = useTranslation()
     function InventaireTable({inventaires}: any){
 
         useEffect(()=> {
@@ -53,16 +55,18 @@ export function Inventaire(){
                 inventaire={inventaire} 
                 magasins={MAGASINS}
                 produits={PRODUCTS}
+                onCurrentChange= {setCurrent}
                 />) : undefined
         }
 
         return <table className="table table-striped table-hover border">
             <thead>
                 <tr style={{background: "darkblue", color: "#fff"}}>
+                    <th rowSpan={2}>{t("edit")}</th>
                     <th rowSpan={2}>Date</th>
-                    <th rowSpan={2}>Product</th>
-                    <th rowSpan={2}>Prix</th>
-                    <th colSpan={MAGASINS.length}>Magasin</th>
+                    <th rowSpan={2}>{t("tab2prod")}</th>
+                    <th rowSpan={2}>{t("tab1col2")}</th>
+                    <th colSpan={MAGASINS.length}>{t("tab2mag")}</th>
                 </tr>
                 <tr>
                     {MAGASINS.map((magasin: Magasin)=> (
@@ -111,19 +115,21 @@ export function Inventaire(){
 
     return <>
         <Form
-            inventaire={inventory} 
+            inventaire={current} 
             produits={PRODUCTS} 
             magasins={MAGASINS} 
             inventaires={inventories} 
             onInventoryChange={setInventories}
         />
 
-        <h3 className="text-center">Inventaire</h3>
+        <h3 className="text-center">{t("invTitle")}</h3>
         
         <div className="d-flex">
-            <button className="btn btn-warning m-1" onClick={CSVExport}>Export</button>
-            <button type="button" className="btn btn-primary m-1" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                Add
+            <button className="btn btn-warning m-1" onClick={CSVExport}>{t("exportBtn")}</button>
+            <button type="button" 
+            className="btn btn-primary m-1" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+            onClick={()=> setCurrent(inventory)}>
+                {t("addBtn")}
             </button>
         </div> 
         <div className="container my-3">

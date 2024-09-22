@@ -6,5 +6,11 @@
     "stock2": "N'afficher que les produits en rupture de stock",
     "tab1col1": "Nom",
     "tab1col2": "Prix",
-    "tab1col3": "Quantité"
+    "tab1col3": "Quantité",
+    "invTitle": "Inventaire",
+    "exportBtn": "Exporter",
+    "addBtn": "Ajouter",
+    "tab2prod": "produit",
+    "tab2mag": "magasin",
+    "edit": "modifier"
 }

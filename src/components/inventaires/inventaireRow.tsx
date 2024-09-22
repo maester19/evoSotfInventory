@@ -1,3 +1,5 @@
+import { useTranslation } from "react-i18next";
+
 interface Magasin {
   id: number;
   nom: string;
@@ -5,10 +7,16 @@ interface Magasin {
  }
  
 
-export function InventaireRow({inventaire, produits, magasins}: any){
+export function InventaireRow({inventaire, produits, magasins, onCurrentChange}: any){
     const product = produits[inventaire.produitId];
+    const {t} = useTranslation()
 
     return <tr>
+        <td key={'edit'+inventaire.id}>
+          <button className="btn btn-info p-1" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+          onChange={()=> onCurrentChange(inventaire)}
+          >{t("edit")}</button>
+        </td>
         <td key={'date'+inventaire.id}>{inventaire.date? inventaire.date : ""}</td>
         <td key={'prod'+inventaire.id}>{product? product.nom : ""}</td>
         <td key={'prix'+inventaire.id}>{product ? product.prix: ""} $</td>

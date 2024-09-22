@@ -6,5 +6,11 @@
     "stock2": "Show only out of stock products",
     "tab1col1": "Name",
     "tab1col2": "Price",
-    "tab1col3": "Stock"
+    "tab1col3": "Stock",
+    "invTitle": "Inventory",
+    "exportBtn": "Export",
+    "addBtn": "Add",
+    "tab2prod": "Product",
+    "tab2mag": "Store",
+    "edit": "Edit"
 }
