@@ -9,24 +9,24 @@ interface Magasin {
 }
 
 export function Form({ inventaire, produits, magasins, inventaires, onInventoryChange }: any) {
-  const [date, setDate] = useState(inventaire ? inventaire.date : "");
-  const [prodId, setProdId] = useState(inventaire ? inventaire.produitId : 1);
+  const [date, setDate] = useState(localStorage.getItem("date") || inventaire.date)
+  const [prodId, setProdId] = useState(localStorage.getItem("prodId") || inventaire.produitId)
   const [stock, setStock] = useState(
-    inventaire
-      ? inventaire.stock
-      : magasins.reduce(({acc, magasin}: any) => ({ ...acc, [magasin.id]: 0 }), {})
-  );
+    JSON.parse(localStorage.getItem("stock")) || inventaire.stock)
 
   const handleStockChange = (magasinId: number, value: number) => {
-    setStock((prevStock: any) => ({ ...prevStock, [magasinId]: value }));
-  };
+    setStock((prevStock: any) => ({ ...prevStock, [magasinId]: value }))
+    localStorage.setItem("stock", JSON.stringify(stock))  
+  }
 
   const handleSubmit = () => {
     if (!date || !prodId || !stock) {
       alert("Please fill in all fields");
       return;
     }
-    const newInventory = { id: inventaire ? inventaire.id : inventaires.length + 1, date, produitId: prodId, stock };
+    inventaires = JSON.parse(localStorage.getItem("inventaires")) || []
+    const newInventory = { id: inventaire ? inventaire.id : inventaires.length + 1, date, produitId: prodId, stock }
+
     if(inventaires[0] == null){
         inventaires[0] = newInventory
         inventaires[0].id = 1
@@ -36,6 +36,7 @@ export function Form({ inventaire, produits, magasins, inventaires, onInventoryC
     } else {
       inventaires[newInventory.id - 1] = newInventory;
     }
+    localStorage.setItem("inventaires", JSON.stringify(inventaires));
     onInventoryChange([...inventaires]);
     setDate(inventaire.date)
     setProdId(inventaire.produitId)

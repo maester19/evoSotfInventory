@@ -37,7 +37,14 @@ const PRODUCTS = [
   ]
 
 export function Inventaire(){
-    const [inventories, setInventories] = useState(INVENTAIRES)
+    const [inventories, setInventories] = useState(
+        JSON.parse(localStorage.getItem("inventories")) || INVENTAIRES
+      )
+    
+    useEffect(() => {
+    localStorage.setItem("inventories", JSON.stringify(inventories));
+    }, [inventories])
+
     const [current, setCurrent] = useState(inventory)
 
     const {t} = useTranslation()
