@@ -8,7 +8,7 @@ interface Magasin {
  
 
 export function InventaireRow({inventaire, produits, magasins, onCurrentChange}: any){
-    const product = produits[inventaire.produitId];
+    const product = produits[inventaire.produitId-1];
     const {t} = useTranslation()
 
     return <tr>
