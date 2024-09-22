@@ -11,7 +11,7 @@ interface Magasin {
 }
 
 const INVENTAIRES = [null]
-const inventory = {id: INVENTAIRES.length +1,date: new Date().toISOString().split("T")[0], produitId: 1, stock: [0,0,0,0,0,0,0] }
+
 
 
 const PRODUCTS = [
@@ -45,6 +45,7 @@ export function Inventaire(){
     localStorage.setItem("inventories", JSON.stringify(inventories));
     }, [inventories])
 
+    const inventory = {id: inventories.length +1,date: new Date().toISOString().split("T")[0], produitId: 1, stock: [0,0,0,0,0,0,0] }
     const [current, setCurrent] = useState(inventory)
 
     const {t} = useTranslation()

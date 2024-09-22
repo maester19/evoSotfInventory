@@ -14,7 +14,7 @@ export function InventaireRow({inventaire, produits, magasins, onCurrentChange}:
     return <tr>
         <td key={'edit'+inventaire.id}>
           <button className="btn btn-info p-1" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
-          onChange={()=> onCurrentChange(...inventaire)}
+          onClick={()=> onCurrentChange({...inventaire})}
           >{t("edit")}</button>
         </td>
         <td key={'date'+inventaire.id}>{inventaire.date? inventaire.date : ""}</td>

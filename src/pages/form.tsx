@@ -14,6 +14,7 @@ export function Form({ inventaire, produits, magasins, inventaires, onInventoryC
   const [stock, setStock] = useState(
     JSON.parse(localStorage.getItem("stock")) || inventaire.stock)
 
+  console.log(inventaire)
   const handleStockChange = (magasinId: number, value: number) => {
     setStock((prevStock: any) => ({ ...prevStock, [magasinId]: value }))
     localStorage.setItem("stock", JSON.stringify(stock))  
