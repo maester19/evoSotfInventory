@@ -4,9 +4,20 @@ import { Select } from "../components/forms/select";
 import { InputNumber } from "../components/forms/inputNumber";
 
 interface Magasin {
-  id: number;
+  id: string;
   nom: string;
-}
+  adresse: string;
+ }
+ interface Produit {
+  id: string;
+  nom: string;
+  prix: number;
+ }
+ interface Inventaire {
+  date: string;
+  produitId: string;
+  stock: Record<string, number>; // Record<magasinId, stock>
+ }
 
 export function Form({ inventaire, produits, magasins, inventaires, onInventoryChange, reset, onResetChange }: any) {
 
@@ -14,7 +25,6 @@ export function Form({ inventaire, produits, magasins, inventaires, onInventoryC
   const [prodId, setProdId] = useState(localStorage.getItem("prodId") || inventaire.produitId)
   const [stock, setStock] = useState(JSON.parse(localStorage.getItem("stock")) || inventaire.stock)
 
-  console.log(inventaire)
   const handleStockChange = (magasinId: number, value: number) => {
     setStock((prevStock: any) => ({ ...prevStock, [magasinId]: value }))
     localStorage.setItem("stock", JSON.stringify(stock))  

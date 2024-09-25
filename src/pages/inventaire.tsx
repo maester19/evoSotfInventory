@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useId, useState } from "react";
 import { InventaireRow } from "../components/inventaires/inventaireRow"
 import { unparse } from "papaparse";
 import { Form } from "./form";
@@ -53,10 +53,6 @@ export function Inventaire(){
 
     const {t} = useTranslation()
     function InventaireTable({inventaires}: any){
-
-        useEffect(()=> {
-            
-        },[inventories])
 
         const row = []
         for(let inventaire of inventaires){
