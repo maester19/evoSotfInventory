@@ -39,14 +39,17 @@ const PRODUCTS = [
 export function Inventaire(){
     const [inventories, setInventories] = useState(
         JSON.parse(localStorage.getItem("inventories")) || INVENTAIRES
-      )
-    
-    useEffect(() => {
-    localStorage.setItem("inventories", JSON.stringify(inventories));
-    }, [inventories])
+    )
 
     const inventory = {id: inventories.length +1,date: new Date().toISOString().split("T")[0], produitId: 1, stock: [0,0,0,0,0,0,0] }
-    const [current, setCurrent] = useState(inventory)
+    const [current, setCurrent] = useState(
+        JSON.parse(localStorage.getItem("current")) || inventory 
+    )
+    const [reset, setReset] = useState(false)
+    
+    useEffect(() => {
+        localStorage.setItem("inventories", JSON.stringify(inventories));
+    }, [inventories])
 
     const {t} = useTranslation()
     function InventaireTable({inventaires}: any){
@@ -64,6 +67,7 @@ export function Inventaire(){
                 magasins={MAGASINS}
                 produits={PRODUCTS}
                 onCurrentChange= {setCurrent}
+                onReset={setReset}
                 />) : undefined
         }
 
@@ -119,7 +123,12 @@ export function Inventaire(){
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
-      };
+      }
+
+      const handleAddInventory = () => {
+        setCurrent(inventory)
+        setReset(true) 
+      }
 
     return <>
         <Form
@@ -128,6 +137,8 @@ export function Inventaire(){
             magasins={MAGASINS} 
             inventaires={inventories} 
             onInventoryChange={setInventories}
+            onResetChange= {setReset}
+            reset={reset}
         />
 
         <h3 className="text-center">{t("invTitle")}</h3>
@@ -136,7 +147,7 @@ export function Inventaire(){
             <button className="btn btn-warning m-1" onClick={CSVExport}>{t("exportBtn")}</button>
             <button type="button" 
             className="btn btn-primary m-1" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
-            onClick={()=> setCurrent(inventory)}>
+            onClick={handleAddInventory}>
                 {t("addBtn")}
             </button>
         </div> 

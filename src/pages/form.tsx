@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { InputDate } from "../components/forms/inputDate";
 import { Select } from "../components/forms/select";
 import { InputNumber } from "../components/forms/inputNumber";
@@ -8,17 +8,30 @@ interface Magasin {
   nom: string;
 }
 
-export function Form({ inventaire, produits, magasins, inventaires, onInventoryChange }: any) {
+export function Form({ inventaire, produits, magasins, inventaires, onInventoryChange, reset, onResetChange }: any) {
+
   const [date, setDate] = useState(localStorage.getItem("date") || inventaire.date)
   const [prodId, setProdId] = useState(localStorage.getItem("prodId") || inventaire.produitId)
-  const [stock, setStock] = useState(
-    JSON.parse(localStorage.getItem("stock")) || inventaire.stock)
+  const [stock, setStock] = useState(JSON.parse(localStorage.getItem("stock")) || inventaire.stock)
 
   console.log(inventaire)
   const handleStockChange = (magasinId: number, value: number) => {
     setStock((prevStock: any) => ({ ...prevStock, [magasinId]: value }))
     localStorage.setItem("stock", JSON.stringify(stock))  
   }
+
+  const handleReset = () => {
+    if(reset == true){
+      setDate(inventaire.date)
+      setProdId(inventaire.produitId)
+      setStock(inventaire.stock)
+    }
+    onResetChange(false)
+  }
+
+  useEffect(()=> {
+    handleReset()
+  },[reset])
 
   const handleSubmit = () => {
     if (!date || !prodId || !stock) {
@@ -39,10 +52,9 @@ export function Form({ inventaire, produits, magasins, inventaires, onInventoryC
     }
     localStorage.setItem("inventaires", JSON.stringify(inventaires));
     onInventoryChange([...inventaires]);
-    setDate(inventaire.date)
-    setProdId(inventaire.produitId)
-    setStock(inventaire.stock)
-  };
+
+    handleReset()
+  }
 
   return (
     <div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">

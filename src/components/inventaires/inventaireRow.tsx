@@ -7,14 +7,19 @@ interface Magasin {
  }
  
 
-export function InventaireRow({inventaire, produits, magasins, onCurrentChange}: any){
+export function InventaireRow({inventaire, produits, magasins, onCurrentChange, onReset}: any){
     const product = produits[inventaire.produitId-1];
     const {t} = useTranslation()
+    
+    const handleCurrentChange = ()=> {
+      onCurrentChange({...inventaire})
+      onReset(true)
+    }
 
     return <tr>
         <td key={'edit'+inventaire.id}>
           <button className="btn btn-info p-1" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
-          onClick={()=> onCurrentChange({...inventaire})}
+          onClick={handleCurrentChange}
           >{t("edit")}</button>
         </td>
         <td key={'date'+inventaire.id}>{inventaire.date? inventaire.date : ""}</td>
